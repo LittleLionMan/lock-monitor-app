@@ -1,0 +1,19 @@
+Betreff: [Gästekarte] Schloss nicht ordnungsgemäß verschlossen
+
+Sehr geehrte/r {{supervisor}},
+
+eine Ihrer Gästekarten hat ein Schloss nicht ordnungsgemäß verschlossen:
+
+Betroffene Gästekarte: {{name}}
+Schloss-ID: {{lock_id}}
+Standort: {{location}}
+Zeitpunkt: {{violation_date}}
+Karten-UID: {{card_uid}}
+
+Bitte informieren Sie den entsprechenden Gast über die korrekte Nutzung der Schlösser.
+
+*** Dies ist Strike 1 von 3 für diese Gästekarte ***
+
+---
+Automatisch generiert am {{current_date}} um {{current_time}}
+Lock Monitor System

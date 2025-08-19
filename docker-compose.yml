@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  lock-monitor:
+    build: .
+    container_name: lock-monitor-app
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config # Optional: externe Konfiguration
+    environment:
+      - TZ=Europe/Berlin
+    networks:
+      - lock-monitor-network
+
+networks:
+  lock-monitor-network:
+    driver: bridge
+
+volumes:
+  app-data:
+  app-logs:

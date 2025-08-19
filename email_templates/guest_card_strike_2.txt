@@ -1,0 +1,21 @@
+Betreff: [Gästekarte] Wiederholter Verstoß
+
+Sehr geehrte/r {{supervisor}},
+
+*** ERNEUTER VERSTOSS EINER GÄSTEKARTE ***
+
+Die Gästekarte {{name}} (UID: {{card_uid}}) hat erneut ein Schloss nicht ordnungsgemäß verschlossen:
+
+Schloss-ID: {{lock_id}}
+Standort: {{location}}
+Zeitpunkt: {{violation_date}}
+
+*** Dies ist bereits der zweite Verstoß dieser Gästekarte ***
+
+Bei einem weiteren Verstoß wird diese Gästekarte automatisch deaktiviert.
+
+Bitte führen Sie eine Unterweisung mit dem betroffenen Gast durch.
+
+---
+Automatisch generiert am {{current_date}} um {{current_time}}
+Lock Monitor System

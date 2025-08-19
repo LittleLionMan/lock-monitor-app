@@ -1,0 +1,24 @@
+Betreff: Wichtige Erinnerung - Wiederholter Verstoß
+
+{{anrede}} {{name}},
+
+*** WICHTIGE WARNUNG ***
+
+leider müssen wir Ihnen mitteilen, dass erneut ein Schloss nicht ordnungsgemäß verschlossen wurde:
+
+Schloss-ID: {{lock_id}}
+Standort: {{location}}
+Zeitpunkt: {{violation_date}}
+Karten-UID: {{card_uid}}
+
+*** Dies ist bereits der zweite Verstoß (Strike 2 von 3) ***
+
+WICHTIG: Bei einem weiteren Verstoß wird Ihr Kartenzugang automatisch deaktiviert!
+
+Bitte kontaktieren Sie umgehend Ihren Vorgesetzten {{supervisor}} und besprechen Sie die korrekte Nutzung der Schlösser.
+
+Wir bitten Sie dringend, in Zukunft besonders sorgfältig zu sein.
+
+---
+Automatisch generiert am {{current_date}} um {{current_time}}
+Lock Monitor System

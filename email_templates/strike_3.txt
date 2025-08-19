@@ -1,0 +1,29 @@
+Betreff: Kartenzugang deaktiviert
+
+{{anrede}} {{name}},
+
+*** KARTENZUGANG DEAKTIVIERT ***
+
+Ihr Kartenzugang wurde aufgrund wiederholter Verstöße deaktiviert.
+
+Grund: Wiederholte Verstöße gegen die Schließregeln
+
+Letzter Verstoß:
+- Schloss-ID: {{lock_id}}
+- Standort: {{location}}
+- Zeitpunkt: {{violation_date}}
+- Karten-UID: {{card_uid}}
+
+Status: Strike 3 - Kartenzugang deaktiviert
+
+SOFORTIGE MASSNAHMEN ERFORDERLICH:
+1. Wenden Sie sich UMGEHEND an {{supervisor}}
+2. Besprechen Sie das weitere Vorgehen
+3. Ihre Karte wurde aus allen Systemen entfernt
+4. Ein Zugang ist bis zur Klärung nicht mehr möglich
+
+Die Reaktivierung Ihres Zugangs ist nur nach Rücksprache mit der Verwaltung möglich.
+
+---
+Automatisch generiert am {{current_date}} um {{current_time}}
+Lock Monitor System

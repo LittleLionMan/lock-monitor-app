@@ -1,0 +1,25 @@
+Betreff: [Gästekarte] Kartenzugang automatisch deaktiviert
+
+Sehr geehrte/r {{supervisor}},
+
+*** GÄSTEKARTE AUTOMATISCH DEAKTIVIERT ***
+
+Eine Ihrer Gästekarten wurde automatisch deaktiviert!
+
+Betroffene Gästekarte: {{name}} (UID: {{card_uid}})
+Grund: Wiederholte Verstöße gegen die Schließregeln
+
+Letzter Verstoß:
+- Schloss-ID: {{lock_id}}
+- Standort: {{location}}
+- Zeitpunkt: {{violation_date}}
+
+Die Gästekarte wurde aus allen Systemen entfernt und ist nicht mehr funktionsfähig.
+
+Falls der Gastzugang weiterhin benötigt wird, wenden Sie sich bitte an das Spindmanagement zur Reaktivierung der Gästekarte.
+
+*** Strike 3 - Gästekarte deaktiviert ***
+
+---
+Automatisch generiert am {{current_date}} um {{current_time}}
+Lock Monitor System

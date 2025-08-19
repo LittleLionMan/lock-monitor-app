@@ -1,0 +1,23 @@
+Betreff: Erinnerung - Schloss nicht ordnungsgemäß verschlossen
+
+{{anrede}} {{name}},
+
+wir haben festgestellt, dass ein Schloss nicht ordnungsgemäß verschlossen wurde:
+
+Schloss-ID: {{lock_id}}
+Standort: {{location}}
+Zeitpunkt: {{violation_date}}
+Karten-UID: {{card_uid}}
+
+Bitte achten Sie in Zukunft darauf, alle Schlösser nach der Nutzung korrekt zu verschließen.
+
+*** Dies ist Strike 1 von 3 ***
+Bei weiteren Verstößen kann Ihr Kartenzugang eingeschränkt werden.
+
+Bei Fragen wenden Sie sich bitte an Ihren Vorgesetzten: {{supervisor}}.
+
+Vielen Dank für Ihr Verständnis.
+
+---
+Automatisch generiert am {{current_date}} um {{current_time}}
+Lock Monitor System
