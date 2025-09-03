@@ -8,7 +8,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
-      - ./config:/app/config # Optional: externe Konfiguration
+      - ./config:/app/config
     environment:
       - TZ=Europe/Berlin
     networks:

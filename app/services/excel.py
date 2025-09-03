@@ -166,19 +166,20 @@ class ExcelService:
             uid_column_index = self._column_letter_to_index(self.columns['card_uid']) + 1  # openpyxl is 1-based
 
             # Find and delete matching rows
-            rows_to_delete = []
+            rows_to_clear = []
 
             for row_num in range(1, worksheet.max_row + 1):  # Include all rows
                 cell_value = worksheet.cell(row=row_num, column=uid_column_index).value
                 if cell_value and str(cell_value).strip().lower() == card_uid.lower():
-                    rows_to_delete.append(row_num)
+                    rows_to_clear.append(row_num)
 
             # Delete rows (from bottom to top to avoid index shifting)
-            for row_num in reversed(rows_to_delete):
-                worksheet.delete_rows(row_num)
-                self.logger.debug(f"Deleted row {row_num} for card UID: {card_uid}")
+            for row_num in rows_to_clear:
+                for col_num in range(1, 12):  # Columns 1 to 11
+                    worksheet.cell(row=row_num, column=col_num).value = None
+                self.logger.debug(f"Cleared content in first 11 columns of row {row_num} for card UID: {card_uid}")
 
-            return len(rows_to_delete)
+            return len(rows_to_clear)
 
         except Exception as e:
             self.logger.error(f"Error deleting from worksheet: {str(e)}")

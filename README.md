@@ -17,7 +17,6 @@ Automatisches Monitoring-System für Burg Cloud Smartlocks mit Strike-Management
 - Docker & Docker Compose (optional)
 - Burg Cloud API Zugang
 - SMTP-Server für E-Mail-Versand
-- Excel-Datei mit Benutzerdaten
 
 ## ⚡ Quick Start
 
@@ -33,55 +32,15 @@ cp .env.example .env
 nano .env  # Ihre Werte eintragen
 ```
 
-### 3. Excel-Datenbank vorbereiten
-Stellen Sie sicher, dass Ihre Excel-Datei die korrekte Struktur hat:
-- **Spalte A:** Supervisor (Format: "Nachname, Vorname")
-- **Spalte B:** Gender (w/m)
-- **Spalte D:** Vorname
-- **Spalte E:** Nachname
-- **Spalte K:** Karten-UID
-
-### 4. Mit Docker starten
+### 3. Mit Docker starten
 ```bash
 docker-compose up -d
 ```
 
-### 5. Ohne Docker starten
+### 4. Ohne Docker starten
 ```bash
 pip install -r requirements.txt
 python -m app.main
-```
-
-## 🔧 Konfiguration
-
-### Wichtige .env Variablen
-
-```bash
-# Burg Cloud API
-BURG_EMAIL=ihre-email@domain.de
-BURG_PASSWORD=ihr-passwort
-BURG_BASE_URL=https://smartlocks.burgcloud.com/burg/rest
-
-# Monitoring
-MONITORED_UNITS=379,380,381
-WHITELIST_LOCATIONS=7606,7607
-VIOLATION_HOURS=48
-STRIKE_CLEANUP_DAYS=90
-
-# E-Mail
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-EMAIL_USERNAME=smtp-user@domain.de
-EMAIL_PASSWORD=app-passwort
-
-# Excel Database
-EXCEL_USER_DATABASE=data/users.xlsx
-EXCEL_COL_SUPERVISOR=A
-EXCEL_COL_GENDER=B
-EXCEL_COL_FIRSTNAME=D
-EXCEL_COL_LASTNAME=E
-EXCEL_COL_UID=K
-EXCEL_WORKSHEETS=1,2
 ```
 
 ## 📊 Strike-System
@@ -101,7 +60,6 @@ EXCEL_WORKSHEETS=1,2
   - Karte aus Cloud-System gelöscht
   - Karte aus Excel-DB gelöscht
   - E-Mail an User + CC Supervisor
-  - Counter wird erhöht (für weitere Verstöße)
 
 ### Cleanup
 - Automatisch alle Strikes löschen wenn jüngster Strike > 90 Tage alt
@@ -201,59 +159,3 @@ docker-compose ps
 # Letzte Ausführung
 grep "Lock check process completed" logs/lock_monitor.log | tail -1
 ```
-
-## 🚨 Troubleshooting
-
-### Häufige Probleme
-
-**Excel-Datei nicht gefunden:**
-```bash
-# Pfad prüfen
-ls -la data/users.xlsx
-# Berechtigung prüfen
-chmod 644 data/users.xlsx
-```
-
-**E-Mail-Versand fehlschlägt:**
-```bash
-# SMTP-Verbindung testen
-python -c "from app.services.email_service import EmailService; from app.config import config; service = EmailService(config); print(service.test_connection())"
-```
-
-**API-Verbindung fehlschlägt:**
-```bash
-# Burg Cloud API testen
-python -c "from app.services.lock_api import LockAPIService; from app.config import config; service = LockAPIService(config); print(service.test_connection())"
-```
-
-### Debug Mode
-```bash
-# .env
-DEBUG=true
-LOG_LEVEL=DEBUG
-
-# Neustart
-docker-compose restart
-```
-
-## 📝 Changelog
-
-### v1.0.0
-- Initiale Version
-- 3-Strike-System implementiert
-- Burg Cloud API Integration
-- Excel-Datenbank Support
-- E-Mail-Benachrichtigungen
-- Docker Support
-
-## 🤝 Support
-
-Bei Fragen oder Problemen:
-1. Logs prüfen (`logs/lock_monitor.log`)
-2. Konfiguration validieren (`python -m app.config`)
-3. Services einzeln testen
-4. GitHub Issues erstellen
-
----
-
-**Lock Monitor Application** - Automatisches Schloss-Monitoring für Burg Cloud Systeme

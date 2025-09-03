@@ -19,7 +19,6 @@ class LockAPIService:
         self.token_expires_at = None
 
     def authenticate(self) -> bool:
-        """Authenticate and get access token"""
         try:
             payload = {
                 "email": self.config.BURG_EMAIL,
@@ -69,7 +68,6 @@ class LockAPIService:
             return False
 
     def _is_token_valid(self) -> bool:
-        """Check if current token is still valid"""
         if not self.token or not self.token_expires_at:
             return False
         return datetime.now(timezone.utc) < (self.token_expires_at - timedelta(minutes=5))
@@ -168,64 +166,78 @@ class LockAPIService:
         return locks
 
     def delete_card_from_cloud(self, card_uid: str) -> bool:
-        if not self._ensure_authenticated():
-            self.logger.error("Failed to authenticate for card deletion")
+
+        try:
+            auth_result = self._ensure_authenticated()
+
+            if not auth_result:
+                self.logger.error("Failed to authenticate for card deletion")
+                return False
+
+        except Exception as auth_exception:
+            self.logger.critical(f"💥 STEP X: Exception in authentication: {auth_exception}")
             return False
 
         try:
-            self.logger.info(f"Starting deletion process for card {card_uid}...")
-
             success_count = 0
             location_ids = self.config.WHITELIST_LOCATIONS
 
-            for location_id in location_ids:
+            for i, location_id in enumerate(location_ids):
                 try:
                     removed = self._remove_card_from_location_lists(card_uid, location_id)
+
                     if removed:
                         success_count += 1
-                except Exception as e:
-                    self.logger.error(f"Error processing location {location_id}: {str(e)}")
+
+                except Exception as location_exception:
+                    self.logger.critical(f"💥 STEP X.{i}: Exception in location {location_id}: {location_exception}")
 
             if success_count > 0:
-                self.logger.info(f"Successfully processed card {card_uid} deletion in {success_count}/{len(location_ids)} locations")
+                self.logger.info(f"Successfully processed card {card_uid} deletion in {success_count} locations")
                 return True
             else:
                 self.logger.info(f"Card {card_uid} was not found in any RFID lists")
                 return True
 
-        except Exception as e:
-            self.logger.error(f"Error during card deletion process for {card_uid}: {str(e)}")
+        except Exception as main_exception:
+            self.logger.critical(f"💥 STEP X: Exception in main logic: {main_exception}")
             return False
 
     def _remove_card_from_location_lists(self, card_uid: str, location_id: str) -> bool:
         try:
             rfid_lists = self._get_location_rfid_lists(location_id)
+
             if not rfid_lists:
                 return False
 
             removal_success = False
 
-            for rfid_list in rfid_lists:
+            for i, rfid_list in enumerate(rfid_lists):
                 list_id = rfid_list.get('id')
+                list_name = rfid_list.get('name', 'Unnamed')
                 rfid_string = rfid_list.get('rfidList', '')
 
-                if not list_id or not rfid_string:
+                if not list_id or not isinstance(rfid_string, str):
+                    self.logger.critical(f"🎯 REMOVE: Invalid list data - skipping")
                     continue
 
-                if card_uid in rfid_string:
+                if card_uid.lower() in rfid_string.lower():
                     updated_rfid_string = self._remove_uid_from_string(rfid_string, card_uid)
 
-                    success = self._update_rfid_list(location_id, list_id, rfid_list['name'], updated_rfid_string)
+                    success = self._update_rfid_list(location_id, list_id, list_name, updated_rfid_string)
+
                     if success:
-                        self.logger.info(f"Removed card {card_uid} from RFID list {list_id} in location {location_id}")
                         removal_success = True
                     else:
-                        self.logger.error(f"Failed to update RFID list {list_id} in location {location_id}")
+                        self.logger.critical(f"🎯 REMOVE: ❌ Failed to update list '{list_name}'")
+                else:
+                    self.logger.critical(f"🎯 REMOVE: ❌ Card {card_uid} NOT found in list '{list_name}'")
 
             return removal_success
 
         except Exception as e:
-            self.logger.error(f"Error removing card from location {location_id}: {str(e)}")
+
+            self.logger.critical(f"💥 REMOVE: Exception: {e}", exc_info=True)
             return False
 
     def _get_location_rfid_lists(self, location_id: str) -> List[Dict]:
@@ -260,8 +272,8 @@ class LockAPIService:
     def _remove_uid_from_string(self, rfid_string: str, card_uid: str) -> str:
         try:
             uid_list = [uid.strip() for uid in rfid_string.split(',') if uid.strip()]
-            updated_list = [uid for uid in uid_list if uid != card_uid]
-            return ','.join(updated_list)
+            updated_list = [uid for uid in uid_list if uid.lower() != card_uid.lower()]
+            return ', '.join(updated_list)
         except Exception as e:
             self.logger.error(f"Error removing UID from string: {str(e)}")
             return rfid_string
