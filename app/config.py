@@ -39,11 +39,11 @@ class Config:
     DATABASE_PATH: str = get_required_env('DATABASE_PATH')
 
     # =============================================================================
-    # BURG CLOUD API CONFIGURATION
+    # CLOUD API CONFIGURATION
     # =============================================================================
-    BURG_EMAIL: str = get_required_env('BURG_EMAIL')
-    BURG_PASSWORD: str = get_required_env('BURG_PASSWORD')
-    BURG_BASE_URL: str = get_required_env('BURG_BASE_URL')
+    CLOUD_EMAIL: str = get_required_env('CLOUD_EMAIL')
+    CLOUD_PASSWORD: str = get_required_env('CLOUD_PASSWORD')
+    CLOUD_BASE_URL: str = get_required_env('CLOUD_BASE_URL')
 
     # =============================================================================
     # MONITORING CONFIGURATION
@@ -134,9 +134,9 @@ class Config:
     def validate_config(cls) -> bool:
         """Validate required configuration values"""
         required_fields = [
-            ('BURG_EMAIL', 'Burg Cloud email address'),
-            ('BURG_PASSWORD', 'Burg Cloud password'),
-            ('BURG_BASE_URL', 'Burg Cloud API base URL'),
+            ('CLOUD_EMAIL', 'Cloud email address'),
+            ('CLOUD_PASSWORD', 'Cloud password'),
+            ('CLOUD_BASE_URL', 'Cloud API base URL'),
             ('EMAIL_USERNAME', 'Email username/address'),
             ('EMAIL_PASSWORD', 'Email password/app password'),
             ('SMTP_SERVER', 'SMTP server address'),

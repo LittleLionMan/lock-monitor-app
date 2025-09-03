@@ -1,10 +1,10 @@
 # Lock Monitor Application
 
-Automatisches Monitoring-System für Burg Cloud Smartlocks mit Strike-Management.
+Automatisches Monitoring-System für Cloud Smartlocks mit Strike-Management.
 
 ## 🎯 Funktionen
 
-- **Automatische Lock-Überwachung** über Burg Cloud API
+- **Automatische Lock-Überwachung** über E-Schloss Cloud API
 - **3-Strike-System** mit E-Mail-Benachrichtigungen
 - **Excel-Integration** für Benutzerdaten
 - **Gästekarten-Support** mit Supervisor-Benachrichtigung
@@ -15,7 +15,7 @@ Automatisches Monitoring-System für Burg Cloud Smartlocks mit Strike-Management
 
 - Python 3.11+
 - Docker & Docker Compose (optional)
-- Burg Cloud API Zugang
+- E-Schloss Cloud API Zugang
 - SMTP-Server für E-Mail-Versand
 
 ## ⚡ Quick Start
@@ -107,7 +107,7 @@ lock-monitor-app/
 │   ├── models/
 │   │   └── database.py      # SQLite Models
 │   ├── services/
-│   │   ├── lock_api.py      # Burg Cloud API
+│   │   ├── lock_api.py      # E-Schloss Cloud API
 │   │   ├── excel_service.py # Excel Integration
 │   │   ├── email_service.py # E-Mail Versand
 │   │   └── strike_service.py # Strike Management

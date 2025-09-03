@@ -9,7 +9,7 @@ class LockAPIService:
         self.config = config
         self.logger = logging.getLogger(self.__class__.__name__)
 
-        self.base_url = "https://smartlocks.burgcloud.com/burg/rest"
+        self.base_url = self.config.CLOUD_BASE_URL
 
         self.login_url = f"{self.base_url}/m2mgate/authentication/login"
         self.device_url = f"{self.base_url}/device/lock"
@@ -21,8 +21,8 @@ class LockAPIService:
     def authenticate(self) -> bool:
         try:
             payload = {
-                "email": self.config.BURG_EMAIL,
-                "password": self.config.BURG_PASSWORD
+                "email": self.config.CLOUD_EMAIL,
+                "password": self.config.CLOUD_PASSWORD
             }
 
             headers = {
@@ -35,7 +35,7 @@ class LockAPIService:
                 "ui-permissions-only": "true"
             }
 
-            self.logger.info("Authenticating with Burg Cloud API...")
+            self.logger.info("Authenticating with Smart-Lock Cloud API...")
 
             response = requests.post(
                 self.login_url,
@@ -160,7 +160,7 @@ class LockAPIService:
                 locks.append(lock_info)
 
         except Exception as e:
-            self.logger.error(f"Error parsing Burg lock data: {str(e)}")
+            self.logger.error(f"Error parsing lock data: {str(e)}")
             self.logger.debug(f"Raw API data: {api_data}")
 
         return locks
